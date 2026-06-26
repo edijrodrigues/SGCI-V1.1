@@ -11,6 +11,12 @@ Todas as alterações relevantes do projeto serão registradas neste arquivo.
 * Estrutura inicial do projeto.
 * Documentação base.
 * Preparação para auditoria da modelagem.
+* Auditoria do núcleo academico
+    - tb_aluno
+    - tb_instrutor
+    - tb_curso
+    - tb_turma
+    - tb_matricula
 
 ### Planned
 
