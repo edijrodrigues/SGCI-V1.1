@@ -11,11 +11,11 @@ possíveis melhorias futuras.
 
 # Módulo Acadêmico
 
-- [ ] tb_aluno
-- [ ] tb_instrutor
-- [ ] tb_curso
-- [ ] tb_turma
-- [ ] tb_matricula
+- [x] tb_aluno
+- [x] tb_instrutor
+- [x] tb_curso
+- [x] tb_turma
+- [x] tb_matricula
 
 ---
 
