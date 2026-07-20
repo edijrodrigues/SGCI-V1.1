@@ -21,10 +21,10 @@ possíveis melhorias futuras.
 
 # Estrutura Organizacional
 
-- [ ] tb_instituicao
-- [ ] tb_unidade
-- [ ] tb_sala
-- [ ] tb_turno
+- [x] tb_instituicao
+- [x] tb_unidade
+- [x] tb_sala
+- [x] tb_turno
 
 ---
 
