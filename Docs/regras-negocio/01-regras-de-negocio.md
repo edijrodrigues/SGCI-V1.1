@@ -206,6 +206,30 @@ Todo Item deve possuir carga horária prevista.
 
 Os Planos de Aula devem ser derivados exclusivamente dos Itens do Plano de Curso.
 
+### RN-PED-PA-002
+
+Todo Plano de Aula deve possuir um Instrutor responsável.
+
+### RN-PED-PA-003
+
+Todo Plano de Aula deve possuir um título.
+
+### RN-PED-PA-004
+
+Todo Plano de Aula deve possuir carga horária prevista.
+
+### RN-PED-PA-005
+
+Um Plano de Aula pode estar vinculado a uma Turma específica.
+
+### RN-PED-PA-006
+
+A exclusão de uma Turma não deve excluir o Plano de Aula correspondente.
+
+### RN-PED-PA-007
+
+Um Item do Plano pode originar diversos Planos de Aula.
+
 ---
 
 # Execução Pedagógica
@@ -261,6 +285,30 @@ Os Planos de Aula devem ser derivados exclusivamente dos Itens do Plano de Curso
 | V1.1 | 2026 | Inclusão das regras dos Itens do Plano de Curso |
 
 ---
+
+## Anexos do Diário de Aula
+
+RN-PED-ANX-001
+
+Todo Anexo deve pertencer a um Diário de Aula.
+
+---
+
+RN-PED-ANX-002
+
+Um Diário de Aula pode possuir vários anexos.
+
+---
+
+RN-PED-ANX-003
+
+Todo Anexo deve possuir um caminho de armazenamento válido.
+
+---
+
+RN-PED-ANX-004
+
+O nome original do arquivo poderá ser preservado para fins de identificação.
 
 # Observações
 
