@@ -30,14 +30,14 @@ possíveis melhorias futuras.
 
 # Módulo Pedagógico
 
-- [ ] tb_plano_curso
-- [ ] tb_plano_curso_item
-- [ ] tb_plano_aula
-- [ ] tb_diario_aula_previsto
-- [ ] tb_diario_aula
-- [ ] tb_diario_anexo
-- [ ] tb_frequencia_aluno
-- [ ] tb_avaliacao_aluno
+- [x] tb_plano_curso
+- [x] tb_plano_curso_item
+- [x] tb_plano_aula
+- [x] tb_diario_aula_previsto
+- [x] tb_diario_aula
+- [x] tb_diario_anexo
+- [x] tb_frequencia_aluno
+- [x] tb_avaliacao_aluno
 
 ---
 
