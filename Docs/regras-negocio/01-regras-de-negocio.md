@@ -310,6 +310,30 @@ RN-PED-ANX-004
 
 O nome original do arquivo poderá ser preservado para fins de identificação.
 
+## Calendário Letivo
+
+RN-CAL-LET-001
+
+Cada Ano Letivo deve possuir apenas um Calendário Letivo.
+
+---
+
+RN-CAL-LET-002
+
+Todo Calendário Letivo deve possuir uma data de início.
+
+---
+
+RN-CAL-LET-003
+
+Todo Calendário Letivo deve possuir uma data de encerramento.
+
+---
+
+RN-CAL-LET-004
+
+A data de encerramento deve ser posterior à data de início.
+
 # Observações
 
 Este documento é incremental.
