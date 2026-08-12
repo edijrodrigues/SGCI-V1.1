@@ -72,3 +72,18 @@ Backlog
 > Esta melhoria foi identificada durante a auditoria da modelagem da V1.1.
 > A alteração não será implementada nesta versão para preservar a compatibilidade com o banco de dados do MVP Beta 0.
 > Sua adoção dependerá da confirmação de que o processo acadêmico do SGCI continuará prevendo apenas um Histórico Escolar por Matrícula.
+
+## HIST-002 — Garantir um único Certificado por Histórico Escolar
+
+**Situação Atual**
+
+A tabela `tb_certificado` permite, tecnicamente, múltiplos certificados para o mesmo Histórico Escolar, pois não existe uma restrição `UNIQUE(historico_id)`.
+
+**Justificativa**
+
+Pela regra de negócio atual do SGCI, um Histórico Escolar consolidado deve originar apenas um Certificado oficial.
+
+**Alteração Proposta**
+
+```sql
+UNIQUE (historico_id)
