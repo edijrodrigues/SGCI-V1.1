@@ -87,3 +87,34 @@ Pela regra de negócio atual do SGCI, um Histórico Escolar consolidado deve ori
 
 ```sql
 UNIQUE (historico_id)
+
+## FIN-001 — Evolução do Modelo Financeiro
+
+**Situação Atual**
+
+A tabela `tb_pagamento` reúne informações da cobrança e da liquidação em uma única entidade.
+
+**Justificativa**
+
+Para instituições com maior complexidade financeira, poderá ser interessante separar os conceitos de:
+
+- Título financeiro;
+- Pagamento;
+- Negociação;
+- Recebimento.
+
+**Alteração Proposta**
+
+Avaliar a criação de novas entidades específicas para controle financeiro.
+
+**Prioridade**
+
+🟢 Baixa
+
+**Versão Prevista**
+
+V3
+
+**Status**
+
+Backlog
