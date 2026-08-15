@@ -6,31 +6,29 @@
 
 **Versão:** V1.1
 
-**Status:** Em Construção
+**Status:** Consolidado (V1.1)
 
 ---
 
 # Objetivo
 
-Este documento centraliza todas as regras de negócio identificadas durante o desenvolvimento e durante a auditoria da modelagem do SGCI.
+Este documento consolida todas as Regras de Negócio identificadas durante a Auditoria da Modelagem da versão V1.1 do SGCI.
 
 Seu objetivo é registrar, de forma organizada, as normas institucionais que orientam o funcionamento do sistema, independentemente da implementação técnica.
 
-As regras aqui descritas representam o comportamento esperado da aplicação e servem como referência para análise, desenvolvimento, testes e futuras evoluções.
+As regras aqui descritas representam o comportamento esperado da aplicação e servem como referência para:
+
+- modelagem do banco de dados;
+- desenvolvimento da aplicação;
+- testes;
+- documentação técnica;
+- evolução do sistema.
 
 ---
 
 # Organização
 
-As regras estão agrupadas em três níveis:
-
-```text
-Domínio
-    │
-Subdomínio
-    │
-Regra de Negócio
-```
+As regras estão organizadas por Domínio e Subdomínio.
 
 Cada regra recebe um identificador único seguindo o padrão:
 
@@ -95,6 +93,32 @@ Toda Turma deve possuir um Turno.
 ### RN-EST-ORG-005
 
 A capacidade máxima de alunos de uma Turma é limitada pela capacidade da Sala utilizada.
+
+---
+
+## Agenda Semanal da Turma
+
+### RN-EST-ORG-006
+
+Toda configuração de dia da semana deve pertencer a uma Turma.
+
+---
+
+### RN-EST-ORG-007
+
+Uma Turma poderá possuir um ou mais dias da semana cadastrados.
+
+---
+
+### RN-EST-ORG-008
+
+Não poderá existir duplicidade do mesmo dia da semana para uma mesma Turma.
+
+Esta regra é garantida por:
+
+```sql
+UNIQUE (turma_id, dia_semana)
+```
 
 ---
 
@@ -166,13 +190,13 @@ Todo Item do Plano de Curso deve pertencer a um único Plano de Curso.
 
 ### RN-PED-IP-002
 
-Um Plano de Curso deve possuir um ou mais Itens de Plano.
+Um Plano de Curso deve possuir um ou mais Itens.
 
 ---
 
 ### RN-PED-IP-003
 
-A numeração (`numero_item`) deve manter uma sequência lógica dentro do Plano de Curso.
+A numeração (`numero_item`) deve manter sequência lógica dentro do Plano.
 
 ---
 
@@ -206,25 +230,37 @@ Todo Item deve possuir carga horária prevista.
 
 Os Planos de Aula devem ser derivados exclusivamente dos Itens do Plano de Curso.
 
+---
+
 ### RN-PED-PA-002
 
 Todo Plano de Aula deve possuir um Instrutor responsável.
+
+---
 
 ### RN-PED-PA-003
 
 Todo Plano de Aula deve possuir um título.
 
+---
+
 ### RN-PED-PA-004
 
 Todo Plano de Aula deve possuir carga horária prevista.
+
+---
 
 ### RN-PED-PA-005
 
 Um Plano de Aula pode estar vinculado a uma Turma específica.
 
+---
+
 ### RN-PED-PA-006
 
 A exclusão de uma Turma não deve excluir o Plano de Aula correspondente.
+
+---
 
 ### RN-PED-PA-007
 
@@ -234,43 +270,195 @@ Um Item do Plano pode originar diversos Planos de Aula.
 
 # Execução Pedagógica
 
-*Aguardando auditoria.*
+## Diário de Aula
+
+### RN-EXE-DIA-001
+
+Toda Aula Ministrada deve possuir um Diário de Aula correspondente.
+
+---
+
+### RN-EXE-DIA-002
+
+Cada Diário de Aula deve estar vinculado a um Diário Previsto.
+
+---
+
+### RN-EXE-DIA-003
+
+Cada Diário Previsto pode originar apenas um Diário Executado.
+
+---
+
+## Anexos
+
+### RN-EXE-ANX-001
+
+Todo Anexo deve pertencer a um Diário de Aula.
+
+---
+
+### RN-EXE-ANX-002
+
+Um Diário de Aula pode possuir vários anexos.
+
+---
+
+### RN-EXE-ANX-003
+
+Todo Anexo deve possuir um caminho de armazenamento válido.
+
+---
+
+### RN-EXE-ANX-004
+
+O nome original do arquivo poderá ser preservado para fins de identificação.
 
 ---
 
 # Avaliação
 
-*Aguardando auditoria.*
+### RN-AVA-001
+
+Toda Avaliação pertence a uma Matrícula.
 
 ---
 
-# Histórico Escolar
+### RN-AVA-002
 
-*Aguardando auditoria.*
-
----
-
-# Certificação
-
-*Aguardando auditoria.*
+Toda Avaliação pertence a um Item do Plano de Curso.
 
 ---
 
-# Financeiro
+### RN-AVA-003
 
-*Aguardando auditoria.*
+Uma Avaliação poderá estar vinculada a um Plano de Aula.
+
+---
+
+### RN-AVA-004
+
+Cada Avaliação registra um único resultado para o aluno.
 
 ---
 
 # Calendário
 
-*Aguardando auditoria.*
+## Calendário Letivo
+
+### RN-CAL-LET-001
+
+Cada Ano Letivo deve possuir apenas um Calendário Letivo.
+
+---
+
+### RN-CAL-LET-002
+
+Todo Calendário Letivo deve possuir data de início.
+
+---
+
+### RN-CAL-LET-003
+
+Todo Calendário Letivo deve possuir data de encerramento.
+
+---
+
+### RN-CAL-LET-004
+
+A data de encerramento deve ser posterior à data de início.
+
+---
+
+## Eventos
+
+### RN-CAL-EVT-001
+
+Todo Evento pertence a um Calendário Letivo.
+
+---
+
+### RN-CAL-EVT-002
+
+Eventos poderão afetar toda a instituição ou apenas parte dela.
+
+---
+
+# Histórico Escolar
+
+### RN-HIS-001
+
+Todo Histórico pertence a uma Matrícula.
+
+---
+
+### RN-HIS-002
+
+Todo Histórico pertence a um Curso.
+
+---
+
+### RN-HIS-003
+
+O Histórico registra o resultado acadêmico consolidado do aluno.
+
+---
+
+# Certificação
+
+### RN-CER-001
+
+Todo Certificado deve estar vinculado a um Histórico Escolar.
+
+---
+
+### RN-CER-002
+
+Todo Certificado deve possuir um código único.
+
+---
+
+### RN-CER-003
+
+Somente alunos aptos poderão receber Certificado.
+
+---
+
+# Financeiro
+
+### RN-FIN-001
+
+Todo Pagamento pertence a uma Matrícula.
+
+---
+
+### RN-FIN-002
+
+Todo Pagamento deve possuir valor.
+
+---
+
+### RN-FIN-003
+
+Todo Pagamento deve possuir data de vencimento.
+
+---
+
+### RN-FIN-004
+
+O pagamento poderá registrar data de quitação.
+
+---
+
+### RN-FIN-005
+
+O status financeiro representa a situação atual da cobrança.
 
 ---
 
 # Segurança
 
-*Aguardando auditoria.*
+As regras deste domínio serão documentadas durante a implementação dos módulos de autenticação, autorização e auditoria.
 
 ---
 
@@ -279,65 +467,22 @@ Um Item do Plano pode originar diversos Planos de Aula.
 | Versão | Data | Alteração |
 |---------|------|-----------|
 | V1.1 | 2026 | Criação do documento |
-| V1.1 | 2026 | Refatoração da estrutura das regras de negócio |
-| V1.1 | 2026 | Inclusão das regras da Estrutura Organizacional |
-| V1.1 | 2026 | Inclusão das regras do Planejamento Pedagógico |
-| V1.1 | 2026 | Inclusão das regras dos Itens do Plano de Curso |
+| V1.1 | 2026 | Consolidação das regras após Auditoria da Modelagem |
+| V1.1 | 2026 | Inclusão das regras da Agenda Semanal das Turmas (`tb_turma_dias`) |
+| V1.1 | 2026 | Refatoração estrutural do documento |
 
 ---
-
-## Anexos do Diário de Aula
-
-RN-PED-ANX-001
-
-Todo Anexo deve pertencer a um Diário de Aula.
-
----
-
-RN-PED-ANX-002
-
-Um Diário de Aula pode possuir vários anexos.
-
----
-
-RN-PED-ANX-003
-
-Todo Anexo deve possuir um caminho de armazenamento válido.
-
----
-
-RN-PED-ANX-004
-
-O nome original do arquivo poderá ser preservado para fins de identificação.
-
-## Calendário Letivo
-
-RN-CAL-LET-001
-
-Cada Ano Letivo deve possuir apenas um Calendário Letivo.
-
----
-
-RN-CAL-LET-002
-
-Todo Calendário Letivo deve possuir uma data de início.
-
----
-
-RN-CAL-LET-003
-
-Todo Calendário Letivo deve possuir uma data de encerramento.
-
----
-
-RN-CAL-LET-004
-
-A data de encerramento deve ser posterior à data de início.
 
 # Observações
 
-Este documento é incremental.
+Este documento representa a consolidação das Regras de Negócio identificadas durante a Auditoria da Modelagem da versão V1.1.
 
-Novas regras serão adicionadas à medida que as auditorias forem concluídas.
+Alterações futuras deverão ocorrer apenas durante a evolução funcional do sistema e ser registradas conforme o versionamento oficial do projeto.
 
-As regras são organizadas por Domínio e Subdomínio para facilitar sua localização, rastreabilidade e manutenção durante a evolução do SGCI.
+As Regras de Negócio mantêm rastreabilidade com:
+
+- Auditoria da Modelagem;
+- Decisões Arquiteturais (ADR);
+- Backlog;
+- DER Oficial;
+- Documentação Técnica.
