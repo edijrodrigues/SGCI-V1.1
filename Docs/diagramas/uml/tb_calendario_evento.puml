@@ -1,0 +1,33 @@
+@startuml SGCI Tabela Calendário Evento
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_calendario_evento" as tb_calendario_evento #ffd4a2{
+  * id_evento : int [PK] <<auto_increment>>
+  --
+  * calendario_id : int [FK]
+  * data_inicio : date
+  data_fim : date
+  * tipo_evento : enum('feriado','recesso','ferias','suspensao','pedagogico','avaliativo')
+  periodo_afetado : enum('dia_inteiro','manha','tarde','noite','meio_periodo') [DF: 'dia_inteiro']
+  aplicavel_a : enum('todos','turno','unidade','turma') [DF: 'todos']
+  referencia_id : int
+'  descricao : text
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' Notas para metadados da tabela
+'note bottom of tb_calendario_evento
+'  **Índices:**
+'  * [KEY] fk_evento_calendario (calendario_id)
+'end note
+
+' --- Definição da tabela externa ---
+'entity "tb_calendario_letivo" as tb_calendario_letivo {}
+
+' --- Relacionamento baseado na CONSTRAINT do SQL ---
+'tb_calendario_letivo "1" -- "0..*" tb_calendario_evento : "fk_evento_calendario (CASCADE)"
+
+@enduml

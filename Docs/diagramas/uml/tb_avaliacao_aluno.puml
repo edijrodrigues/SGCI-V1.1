@@ -1,0 +1,50 @@
+@startuml SGCI Tabela Avaliação Aluno
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_avaliacao_aluno" as tb_avaliacao_aluno #f8ffd1{
+  * id_avaliacao : int [PK] <<auto_increment>>
+  --
+  * matricula_id : int [FK]
+  * turma_id : int [FK]
+  * plano_curso_item_id : int [FK]
+  plano_aula_id : int [FK]
+  * instrutor_id : int [FK]
+  * tipo_avaliacao : enum('prova','trabalho','projeto','pratica','atividade') [DF: 'atividade']
+  nota : decimal(5,2)
+  conceito : varchar(20)
+  * data_avaliacao : date
+  observacao : text
+  
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para índices complexos e chaves únicas compostas
+'note bottom of tb_avaliacao_aluno
+'  **Chaves Únicas & Índices:**
+'  * [UQ] uq_avaliacao_unica (matricula_id, plano_curso_item_id, tipo_avaliacao)
+'  * [KEY] fk_avaliacao_turma (turma_id)
+'  * [KEY] fk_avaliacao_item (plano_curso_item_id)
+'  * [KEY] fk_avaliacao_aula (plano_aula_id)
+'  * [KEY] fk_avaliacao_instrutor (instrutor_id)
+'end note
+
+' --- Definição das tabelas externas (vazias apenas para mapear o relacionamento) ---
+'entity "tb_matricula" as tb_matricula {}
+'entity "tb_turma" as tb_turma {}
+'entity "tb_plano_curso_item" as tb_plano_curso_item {}
+'entity "tb_plano_aula" as tb_plano_aula {}
+'entity "tb_instrutor" as tb_instrutor {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_matricula "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_matricula (RESTRICT)"
+'tb_turma "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_turma (RESTRICT)"
+'tb_plano_curso_item "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_item (RESTRICT)"
+'tb_plano_aula "0..1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_aula (SET NULL)"
+'tb_instrutor "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_instrutor (RESTRICT)"
+
+@enduml

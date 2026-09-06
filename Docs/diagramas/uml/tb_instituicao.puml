@@ -1,0 +1,22 @@
+@startuml SGCI Tabela Instituição
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_instituicao" as tb_instituicao #e1f8f6{
+  * id_instituicao : int [PK] <<auto_increment>>
+  --
+  * nome : varchar(150)
+  razao_social : varchar(200)
+  cnpj : varchar(18)
+  telefone : varchar(20)
+  email : varchar(150)
+  site : varchar(150)
+  endereco : varchar(200)
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+@enduml

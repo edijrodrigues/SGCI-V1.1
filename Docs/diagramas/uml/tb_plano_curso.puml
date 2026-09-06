@@ -1,0 +1,32 @@
+@startuml SGCI Tabela Plano Curso
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_plano_curso" as tb_plano_curso #f8ffd1{
+  * id_plano_curso : int [PK] <<auto_increment>>
+  --
+  * curso_id : int [FK]
+  * codigo_plano : varchar(30)
+  * versao : varchar(20)
+  * objetivo_geral : text
+  objetivos_especificos : text
+  * carga_horaria_total : int
+'  observacoes : text
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' Notas para chaves e índices
+'note bottom of tb_plano_curso
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_plano_curso_curso (curso_id)
+'end note
+
+' --- Definição da tabela externa para amarração ---
+'entity "tb_curso" as tb_curso {}
+
+' --- Relacionamento baseado na CONSTRAINT do seu SQL ---
+'tb_curso "1" -- "0..*" tb_plano_curso : "fk_plano_curso_curso (CASCADE)"
+
+@enduml

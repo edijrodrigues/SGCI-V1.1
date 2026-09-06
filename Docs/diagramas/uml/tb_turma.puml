@@ -1,0 +1,48 @@
+@startuml SGCI Tabela Turma
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_turma" as tb_turma #fccccc57{
+  * id_turma : int [PK] <<auto_increment>>
+  --
+  * curso_id : int [FK]
+  * unidade_id : int [FK]
+  * sala_id : int [FK]
+  * turno_id : int [FK]
+  * instrutor_id : int [FK]
+  * nome_turma : varchar(100)
+  * data_inicio : date
+  data_fim : date
+'  observacao : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para os diversos índices da tabela central
+'note bottom of tb_turma
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_turma_curso (curso_id)
+'  * [KEY] fk_turma_unidade (unidade_id)
+'  * [KEY] fk_turma_sala (sala_id)
+'  * [KEY] fk_turma_turno (turno_id)
+'  * [KEY] fk_turma_instrutor (instrutor_id)
+'end note
+
+' --- Definição das tabelas externas para o relacionamento do Hub ---
+'entity "tb_curso" as tb_curso {}
+'entity "tb_unidade" as tb_unidade {}
+'entity "tb_sala" as tb_sala {}
+'entity "tb_turno" as tb_turno {}
+'entity "tb_instrutor" as tb_instrutor {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_curso "1" -- "0..*" tb_turma : "fk_turma_curso (RESTRICT)"
+'tb_unidade "1" -- "0..*" tb_turma : "fk_turma_unidade (RESTRICT)"
+'tb_sala "1" -- "0..*" tb_turma : "fk_turma_sala (RESTRICT)"
+'tb_turno "1" -- "0..*" tb_turma : "fk_turma_turno (RESTRICT)"
+'tb_instrutor "1" -- "0..*" tb_turma : "fk_turma_instrutor (RESTRICT)"
+
+@enduml

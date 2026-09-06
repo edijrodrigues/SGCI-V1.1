@@ -1,0 +1,21 @@
+@startuml SGCI Tabela Curso
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_curso" as tb_curso #fccccc57{
+  * id_curso : int [PK] <<auto_increment>>
+  --
+  * codigo_curso : varchar(20) <<unique>>
+  * nome_curso : varchar(150)
+  descricao : text
+  * carga_horaria : int [DF: 0]
+  duracao_meses : decimal(4,1)
+  nivel : enum('basico','intermediario','avancado','tecnico') [DF: 'basico']
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+@enduml

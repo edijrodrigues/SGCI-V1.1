@@ -1,0 +1,33 @@
+@startuml SGCI Tabela Pagamento
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_pagamento" as tb_pagamento #f5c5ff{
+  * id_pagamento : int [PK] <<auto_increment>>
+  --
+  * matricula_id : int [FK]
+  tipo_pagamento : enum('mensalidade','parcela','unico','outro') [DF: 'mensalidade']
+  * valor : decimal(10,2)
+  * data_vencimento : date
+  data_pagamento : date
+  status_pagamento : enum('pendente','pago','atrasado','cancelado') [DF: 'pendente']
+  forma_pagamento : enum('pix','dinheiro','cartao','boleto','outro')
+  'descricao : text
+  '* criado_em : datetime [DF: CURRENT_TIMESTAMP]
+  '* atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' Notas para índices internos
+'note bottom of tb_pagamento
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_pagamento_matricula (matricula_id)
+'end note
+
+' --- Definição da tabela externa para amarração ---
+'entity "tb_matricula" as tb_matricula {}
+
+' --- Relacionamento baseado na CONSTRAINT do seu SQL ---
+'tb_matricula "1" -- "0..*" tb_pagamento : "fk_pagamento_matricula (RESTRICT)"
+
+@enduml

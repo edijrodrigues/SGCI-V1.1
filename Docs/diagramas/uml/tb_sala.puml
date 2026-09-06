@@ -1,0 +1,32 @@
+@startuml SGCI Tabela Sala
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_sala" as tb_sala #e1f8f6{
+  * id_sala : int [PK] <<auto_increment>>
+  --
+  * unidade_id : int [FK]
+  * nome_sala : varchar(100)
+  capacidade : int [DF: 30]
+  tipo_sala : enum('teorica','laboratorio','multiuso') [DF: 'teorica']
+'  observacao : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para chaves e índices
+'note bottom of tb_sala
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_sala_unidade (unidade_id)
+'end note
+
+' --- Definição da tabela externa para amarração ---
+'entity "tb_unidade" as tb_unidade {}
+
+' --- Relacionamento baseado na CONSTRAINT do seu SQL ---
+'tb_unidade "1" -- "0..*" tb_sala : "fk_sala_unidade (RESTRICT)"
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml SGCI Tabela Plano Aula
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_plano_aula" as tb_plano_aula #f8ffd1{
+  * id_plano_aula : int [PK] <<auto_increment>>
+  --
+  * plano_curso_item_id : int [FK]
+  * instrutor_id : int [FK]
+  turma_id : int [FK]
+  * titulo_aula : varchar(150)
+  metodologia : text
+  recursos : text
+  avaliacao : text
+  * carga_horaria : decimal(5,2)
+'  observacoes : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' Notas para chaves e índices
+'note bottom of tb_plano_aula
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_plano_aula_item (plano_curso_item_id)
+'  * [KEY] fk_plano_aula_instrutor (instrutor_id)
+'  * [KEY] fk_plano_aula_turma (turma_id)
+'end note
+
+' --- Definição das tabelas externas para amarração ---
+'entity "tb_plano_curso_item" as tb_plano_curso_item {}
+'entity "tb_instrutor" as tb_instrutor {}
+'entity "tb_turma" as tb_turma {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_plano_curso_item "1" -- "0..*" tb_plano_aula : "fk_plano_aula_item (CASCADE)"
+'tb_instrutor "1" -- "0..*" tb_plano_aula : "fk_plano_aula_instrutor (RESTRICT)"
+'tb_turma "0..1" -- "0..*" tb_plano_aula : "fk_plano_aula_turma (SET NULL)"
+
+@enduml

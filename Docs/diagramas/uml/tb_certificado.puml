@@ -1,0 +1,48 @@
+@startuml SGCI Tabela Certificado
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_certificado" as tb_certificado #9cffde{
+  * id_certificado : int [PK] <<auto_increment>>
+  --
+  * historico_id : int [FK]
+  * aluno_id : int [FK]
+  * curso_id : int [FK]
+  * turma_id : int [FK]
+  * instrutor_id : int [FK]
+  * codigo_certificado : varchar(50) <<unique>>
+  * data_emissao : date
+  validade : date
+'  observacao : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para índices internos da tabela
+'note bottom of tb_certificado
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_cert_historico (historico_id)
+'  * [KEY] fk_cert_aluno (aluno_id)
+'  * [KEY] fk_cert_curso (curso_id)
+'  * [KEY] fk_cert_turma (turma_id)
+'  * [KEY] fk_cert_instrutor (instrutor_id)
+'end note
+
+' --- Tabelas Relacionadas (Definições simplificadas para amarrar o DER) ---
+'entity "tb_aluno" as tb_aluno {}
+'entity "tb_curso" as tb_curso {}
+'entity "tb_historico_aluno" as tb_historico_aluno {}
+'entity "tb_instrutor" as tb_instrutor {}
+'entity "tb_turma" as tb_turma {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_aluno "1" -- "0..*" tb_certificado : "fk_cert_aluno (RESTRICT)"
+'tb_curso "1" -- "0..*" tb_certificado : "fk_cert_curso (RESTRICT)"
+'tb_historico_aluno "1" -- "0..*" tb_certificado : "fk_cert_historico (RESTRICT)"
+'tb_instrutor "1" -- "0..*" tb_certificado : "fk_cert_instrutor (RESTRICT)"
+'tb_turma "1" -- "0..*" tb_certificado : "fk_cert_turma (RESTRICT)"
+
+@enduml

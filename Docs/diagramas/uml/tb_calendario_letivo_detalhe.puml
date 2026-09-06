@@ -1,0 +1,37 @@
+@startuml SGCI Tabela Calendário Letivo Detalhe
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_calendario_letivo_detalhe" as tb_calendario_letivo_detalhe #ffd4a2{
+  * id_dia : int [PK] <<auto_increment>>
+  --
+  * calendario_id : int [FK]
+  * evento_id : int [FK]
+  * data : date
+  * dia_semana : tinyint
+  * eh_letivo : tinyint(1) [DF: 1]
+  periodo_do_dia : enum('dia_inteiro','manha','tarde','noite') [DF: 'dia_inteiro']
+  tipo_evento : enum('nenhum','feriado','recesso','ferias','suspensao','pedagogico','avaliativo') [DF: 'nenhum']
+  periodo_letivo : enum('1bim','2bim','3bim','4bim','1tri','2tri','3tri','1sem','2sem') [DF: NULL]
+'  observacao : text
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' Notas para índices complexos e chaves únicas compostas
+'note bottom of tb_calendario_letivo_detalhe
+'  **Chaves Únicas & Índices:**
+'  * [UQ] ux_calendario_data (calendario_id, data)
+'  * [KEY] fk_detalhe_evento (evento_id)
+'end note
+
+' --- Tabelas Relacionadas (Simplificadas para visualização do fluxo) ---
+'entity "tb_calendario_letivo" as tb_calendario_letivo {}
+'entity "tb_calendario_evento" as tb_calendario_evento {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_calendario_letivo "1" -- "0..*" tb_calendario_letivo_detalhe : "fk_detalhe_calendario (CASCADE)"
+'tb_calendario_evento "0..1" -- "0..*" tb_calendario_letivo_detalhe : "fk_detalhe_evento (SET NULL)"
+
+@enduml

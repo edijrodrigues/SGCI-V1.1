@@ -1,0 +1,26 @@
+@startuml SGCI Tabela Instrutor
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_instrutor" as tb_instrutor #fccccc57{
+  * id_instrutor : int [PK] <<auto_increment>>
+  --
+  * nome_instrutor : varchar(150)
+  cpf_instrutor : varchar(14) <<unique>>
+  * email_instrutor : varchar(150)
+  telefone_instrutor : varchar(20)
+  especialidade : varchar(150)
+  endereco_instrutor : varchar(255)
+  cidade_instrutor : varchar(100)
+  estado_instrutor : char(2)
+  cep_instrutor : varchar(15)
+  data_admissao : date
+'  observacao : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+@enduml

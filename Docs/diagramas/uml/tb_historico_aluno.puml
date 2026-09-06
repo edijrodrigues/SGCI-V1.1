@@ -1,0 +1,46 @@
+@startuml SGCI Tabela Histórico Aluno
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_historico_aluno" as tb_historico_aluno #9cffde{
+  * id_historico : int [PK] <<auto_increment>>
+  --
+  * matricula_id : int [FK]
+  * curso_id : int [FK]
+  * turma_id : int [FK]
+  * instrutor_id : int [FK]
+  media_final : decimal(5,2)
+  frequencia_final : decimal(5,2)
+  resultado_final : enum('aprovado','reprovado','cancelado','em_andamento') [DF: 'em_andamento']
+  carga_horaria_cumprida : int
+  data_conclusao : date
+'  observacao : text
+'  * ativo : tinyint(1) [DF: 1]
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para índices internos
+'note bottom of tb_historico_aluno
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_hist_matricula (matricula_id)
+'  * [KEY] fk_hist_curso (curso_id)
+'  * [KEY] fk_hist_turma (turma_id)
+'  * [KEY] fk_hist_instrutor (instrutor_id)
+'end note
+
+' --- Definição das tabelas externas para o relacionamento ---
+'entity "tb_matricula" as tb_matricula {}
+'entity "tb_curso" as tb_curso {}
+'entity "tb_turma" as tb_turma {}
+'entity "tb_instrutor" as tb_instrutor {}
+
+' --- Relacionamentos baseados nas CONSTRAINTS do seu SQL ---
+'tb_matricula "1" -- "0..*" tb_historico_aluno : "fk_hist_matricula (RESTRICT)"
+'tb_curso "1" -- "0..*" tb_historico_aluno : "fk_hist_curso (RESTRICT)"
+'tb_turma "1" -- "0..*" tb_historico_aluno : "fk_hist_turma (RESTRICT)"
+'tb_instrutor "1" -- "0..*" tb_historico_aluno : "fk_hist_instrutor (RESTRICT)"
+
+@enduml

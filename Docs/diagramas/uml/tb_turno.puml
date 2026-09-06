@@ -1,0 +1,19 @@
+@startuml SGCI Tabela Turno
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_turno" as tb_turno #e1f8f6{
+  * id_turno : int [PK] <<auto_increment>>
+  --
+  * nome_turno : varchar(50) <<unique>>
+  * hora_inicio : time
+  * hora_fim : time
+  observacao : text
+  * ativo : tinyint(1) [DF: 1]
+  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+  deletado_em : datetime [DF: NULL]
+}
+
+@enduml

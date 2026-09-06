@@ -1,0 +1,142 @@
+' diagrama_principal.puml
+@startuml Data Base SGCI
+'--- CONFIGURAÇÕES DE LAYOUT PARA SISTEMAS GRANDES ---
+!theme plain
+
+' Aumenta o limite máximo de pixels para o diagrama não ser cortado
+!pragma page_render_limit 50000000
+
+' Configura o layout para não cruzar tantas linhas
+skinparam linestyle orthopedic
+left to right direction
+skinparam linetype ortho
+skinparam linetype polyline
+'skinparam packageStyle rectilinear
+'skinparam shadowing false
+
+' Importa as tabelas necessárias
+' ==========================================
+' 1. PACOTE: MÓDULO ACADEMICO
+' ==========================================
+package "Estrutura Academica" #F5F5F5{
+  !include uml/tb_aluno.puml
+  !include uml/tb_instrutor.puml
+  !include uml/tb_curso.puml
+  !include uml/tb_turma.puml
+  !include uml/tb_turma_dias.puml
+  !include uml/tb_matricula.puml
+}
+
+' ==========================================
+' 2. PACOTE: MÓDULO ORGANIZACIONAL
+' ==========================================
+package "Estrutura Organizacional" #EBF3F9{
+  !include uml/tb_instituicao.puml
+  !include uml/tb_unidade.puml
+  !include uml/tb_sala.puml
+  !include uml/tb_turno.puml
+}
+
+' ==========================================
+' 3. PACOTE: MÓDULO PEDAGÓGICO
+' ==========================================
+package "Planejamento Pedagogico" #FFF8E7{  
+  !include uml/tb_plano_curso.puml
+  !include uml/tb_plano_curso_item.puml
+  !include uml/tb_plano_aula.puml
+  !include uml/tb_diario_aula_previsto.puml
+  !include uml/tb_diario_aula.puml
+  !include uml/tb_diario_anexo.puml
+  !include uml/tb_frequencia_aluno.puml
+  !include uml/tb_avaliacao_aluno.puml
+}
+
+' ==========================================
+' 4. PACOTE: MÓDULO HISTORICO
+' ==========================================
+package "Estrutura de encerramento do curso" #F1F9F1{
+  !include uml/tb_historico_aluno.puml
+  !include uml/tb_certificado.puml
+}
+
+' ==========================================
+' 5. PACOTE: MÓDULO FINANCEIRO
+' ==========================================
+package "Ciclo de Vida do Aluno & Finaças" #F9F1F9{
+  !include uml/tb_pagamento.puml  
+}
+
+' ==========================================
+' 6. PACOTE: MÓDULO CALENDARIO
+' ==========================================
+package "Calendário Acadêmico & Eventos" #F9F9F1{
+  !include uml/tb_calendario_letivo.puml
+  !include uml/tb_calendario_letivo_detalhe.puml
+  !include uml/tb_calendario_evento.puml
+}
+' ==========================================
+' DEFINE TODOS OS RELACIONAMENTOS (FKs)
+' ==========================================
+' Define os relacionamentos abaixo das importações
+
+' Relacionamentos Estruturais
+tb_instituicao "1" -- "0..*" tb_unidade : "fk_unidade_instituicao"
+tb_unidade "1" -- "0..*" tb_sala : "fk_sala_unidade"
+
+' Relacionamentos do Hub Central (tb_turma)
+tb_curso "1" -- "0..*" tb_turma : "fk_turma_curso"
+tb_unidade "1" -- "0..*" tb_turma : "fk_turma_unidade"
+tb_sala "1" -- "0..*" tb_turma : "fk_turma_sala"
+tb_turno "1" -- "0..*" tb_turma : "fk_turma_turno"
+tb_instrutor "1" -- "0..*" tb_turma : "fk_turma_instrutor"
+tb_turma "1" -- "0..*" tb_turma_dias : "fk_turmadias_turma"
+
+' Relacionamentos do Planejamento Pedagógico
+tb_curso "1" -- "0..*" tb_plano_curso : "fk_plano_curso_curso"
+tb_plano_curso "1" -- "0..*" tb_plano_curso_item : "fk_item_plano"
+tb_plano_curso_item "1" -- "0..*" tb_plano_aula : "fk_plano_aula_item"
+tb_instrutor "1" -- "0..*" tb_plano_aula : "fk_plano_aula_instrutor"
+tb_turma "0..1" -- "0..*" tb_plano_aula : "fk_plano_aula_turma"
+
+' Relacionamentos do Calendário Letivo
+tb_calendario_letivo "1" -- "0..*" tb_calendario_evento : "fk_evento_calendario"
+tb_calendario_letivo "1" -- "0..*" tb_calendario_letivo_detalhe : "fk_detalhe_calendario"
+tb_calendario_evento "0..1" -- "0..*" tb_calendario_letivo_detalhe : "fk_detalhe_evento"
+
+' Relacionamentos da Matrícula e Financeiro
+tb_aluno "1" -- "0..*" tb_matricula : "fk_matricula_aluno"
+tb_turma "1" -- "0..*" tb_matricula : "fk_matricula_turma"
+tb_matricula "1" -- "0..*" tb_pagamento : "fk_pagamento_matricula"
+
+' Relacionamentos Diários e Agendamentos
+tb_turma "1" -- "0..*" tb_diario_aula_previsto : "fk_previsto_turma"
+tb_plano_aula "1" -- "0..*" tb_diario_aula_previsto : "fk_previsto_planoaula"
+tb_diario_aula_previsto "1" -- "0..1" tb_diario_aula : "fk_diario_previsto"
+tb_turma "1" -- "0..*" tb_diario_aula : "fk_diario_turma"
+tb_instrutor "1" -- "0..*" tb_diario_aula : "fk_diario_instrutor"
+tb_plano_aula "1" -- "0..*" tb_diario_aula : "fk_diario_planoaula"
+tb_diario_aula "1" -- "0..*" tb_diario_anexo : "fk_anexo_diario"
+
+' Relacionamentos de Frequência e Avaliação
+tb_matricula "1" -- "0..*" tb_frequencia_aluno : "fk_freq_matricula"
+tb_turma "1" -- "0..*" tb_frequencia_aluno : "fk_freq_turma"
+tb_plano_aula "1" -- "0..*" tb_frequencia_aluno : "fk_freq_plano_aula"
+tb_instrutor "1" -- "0..*" tb_frequencia_aluno : "fk_freq_instrutor"
+tb_matricula "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_matricula"
+tb_turma "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_turma"
+tb_plano_curso_item "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_item"
+tb_plano_aula "0..1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_aula"
+tb_instrutor "1" -- "0..*" tb_avaliacao_aluno : "fk_avaliacao_instrutor"
+
+' Relacionamentos de Histórico e Certificados
+tb_matricula "1" -- "0..*" tb_historico_aluno : "fk_hist_matricula"
+tb_curso "1" -- "0..*" tb_historico_aluno : "fk_hist_curso"
+tb_turma "1" -- "0..*" tb_historico_aluno : "fk_hist_turma"
+tb_instrutor "1" -- "0..*" tb_historico_aluno : "fk_hist_instrutor"
+
+tb_historico_aluno "1" -- "0..*" tb_certificado : "fk_cert_historico"
+tb_aluno "1" -- "0..*" tb_certificado : "fk_cert_aluno"
+tb_curso "1" -- "0..*" tb_certificado : "fk_cert_curso"
+tb_turma "1" -- "0..*" tb_certificado : "fk_cert_turma"
+tb_instrutor "1" -- "0..*" tb_certificado : "fk_cert_instrutor"
+@enduml

@@ -1,0 +1,20 @@
+@startuml SGCI Tabela Calendario Letivo
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_calendario_letivo" as tb_calendario_letivo #ffd4a2{
+  * id_calendario : int [PK] <<auto_increment>>
+  --
+  * ano : int <<unique>>
+  * data_inicio : date
+  * data_fim : date
+'  descricao : varchar(255)
+'  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+}
+
+' --- Relacionamento real entre as duas tabelas ---
+'tb_calendario_letivo "1" -- "0..*" tb_calendario_evento : "fk_evento_calendario (CASCADE)"
+
+@enduml

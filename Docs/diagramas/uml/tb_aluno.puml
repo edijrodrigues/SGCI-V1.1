@@ -1,0 +1,46 @@
+@startuml SGCI Tabela Aluno
+' Configurações recomendadas para diagramas de banco de dados
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_aluno" as tb_aluno #fccccc57{
+  * id_aluno : int [PK] <<auto_increment>>
+  --
+  * nome_aluno : varchar(150)
+  * data_nascimento : date
+  cpf_aluno : varchar(14) <<unique>>
+  rg_aluno : varchar(20)
+  * email_aluno : varchar(150)
+  telefone_aluno : varchar(20)
+  endereco_aluno : varchar(255)
+  cidade_aluno : varchar(100)
+  estado_aluno : char(2)
+  cep_aluno : varchar(15)
+'  * ativo : tinyint(1) [DF: 1]
+'  criado_em : datetime [DF: CURRENT_TIMESTAMP]
+'  atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+'  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para comentários mais detalhados sobre as tabelas ou campos
+'note bottom of tb_aluno
+'    **Propriedades da Tabela:**
+'    * ENGINE=InnoDB
+'    * CHARSET=utf8mb4
+'    * COLLATION: utf8mb4_0900_ai_ci
+'    
+'    **Regras de Negócio:**
+'    ## O aluno deve possuir nome.
+'    ## O aluno deve possuir data de nascimento.
+'    ## CPF deve ser único quando informado.
+'        Implementado por:
+'        UNIQUE(cpf_aluno)
+'    ## Um aluno pode possuir várias matrículas.
+'    ## Um aluno não pode possuir duas matrículas na mesma turma.
+'        Regra implementada em:
+'        tb_matricula
+'        UNIQUE(aluno_id, turma_id)
+'end note
+
+@enduml

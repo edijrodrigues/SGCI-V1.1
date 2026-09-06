@@ -1,0 +1,32 @@
+@startuml SGCI Tabela Unidade
+!theme plain
+skinparam linestyle orthopedic
+left to right direction
+
+entity "tb_unidade" as tb_unidade #e1f8f6{
+  * id_unidade : int [PK] <<auto_increment>>
+  --
+  * instituicao_id : int [FK]
+  * nome : varchar(150)
+  endereco : varchar(200)
+  telefone : varchar(20)
+  email : varchar(150)
+  * ativo : tinyint(1) [DF: 1]
+  * criado_em : datetime [DF: CURRENT_TIMESTAMP]
+  * atualizado_em : datetime [DF: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP]
+  deletado_em : datetime [DF: NULL]
+}
+
+' Notas para chaves e índices
+'note bottom of tb_unidade
+'  **Índices Secundários (Keys):**
+'  * [KEY] fk_unidade_instituicao (instituicao_id)
+'end note
+
+' --- Definição da tabela externa para amarração ---
+'entity "tb_instituicao" as tb_instituicao {}
+
+' --- Relacionamento baseado na CONSTRAINT do seu SQL ---
+'tb_instituicao "1" -- "0..*" tb_unidade : "fk_unidade_instituicao (RESTRICT)"
+
+@enduml
